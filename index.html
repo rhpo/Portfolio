@@ -36,7 +36,7 @@
 </style>
 </head>
 
-<body>
+<body onload="g();">
 	<section class="hero is-info is-bold is-left">
 		<div class="hero-content">
 			<div class="container">
@@ -223,9 +223,29 @@
 			<div class="content">
 				You're on ramey.ml. Made by Ramy Hadid (ramey) - <a href="mailto:me@ramey.ml">me@ramey.ml</a> | Credits to chuie
 			</div>
+			<div class="content"style="color:orange;font-weight:700;">
+				Visits: <span id="counterH" style="color: black;">1</span>
+			</div>
 		</div>
 	</footer>
 </body>
 
-<!-- Mirrored from chuie.io/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 29 Jul 2021 20:24:41 GMT -->
+<script>
+	function g()
+	{
+		var n = localStorage.getItem('on_load_counter');
+		if (n === null) {
+		n = 0;
+		}
+		n++;
+		
+		localStorage.setItem("on_load_counter", n);
+		
+		nums = n.toString().split('').map(Number);
+		document.getElementById('counterH').innerHTML = '';
+		for (var i of nums) {
+		document.getElementById('counterH').innerHTML += '<span class="counter-item">' + i + '</span>';
+		}
+	}
+</script>
 </html>
