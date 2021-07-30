@@ -224,7 +224,10 @@
 				You're on ramey.ml. Made by Ramy Hadid (ramey) - <a href="mailto:me@ramey.ml">me@ramey.ml</a> | Credits to chuie
 			</div>
 			<div class="content"style="color:orange;font-weight:700;">
-				Visits: <span id="counterH" style="color: black;">1</span>
+				Visits: <span id="counter" style="color: black;">1</span>
+			</div>
+			<div class="content"style="color:orange;font-weight:700;">
+				You visited my page <span id="counterH" style="color: black;">1</span><span> Times.</span>
 			</div>
 		</div>
 	</footer>
@@ -246,6 +249,30 @@
 		for (var i of nums) {
 		document.getElementById('counterH').innerHTML += '<span class="counter-item">' + i + '</span>';
 		}
+		
+		    var date = new Date();
+		    var expiresDays = 1; 
+		    date.setTime(date.getTime() + expiresDays*24*3600*1000);
+		    function addCookie(name,value,expiresDays) {
+			var cookieString = name + " = " + escape(value);
+			cookieString = cookieString + "; expires = " + date.toGMTString();
+			document.cookie = cookieString;
+		    } 
+		function getCookie(name) {
+		var strCookie = document.cookie; 
+		var arrCookie = strCookie.split(";"); 
+		for(var i = 0; i < arrCookie.length; i++) {
+		    var arr = arrCookie[i].split("="); 
+		    if (arr[0] == name) return arr[1];
+		} 
+		return ""; 
+	    }
+
+	    var counter = getCookie('counter');
+	    if (!counter) counter = 1;
+	    else counter = parseInt(counter) + 1;
+	    addCookie('counter', counter, date);
+	    document.getElementById('counter').innerHTML = "Hello, this is your number one" + counter + "Browse this page this time!";
 	}
 </script>
 </html>
