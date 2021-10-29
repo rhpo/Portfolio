@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<script>
-    var usr = ("user" + Math.floor(Math.random() * 100) + 1);
-    $("c").value = usr + ":~# ";
-    function $(elm='') {
-        return document.getElementById(elm);
-    }
-</script>
 <style>
     .c
     {
@@ -27,3 +20,11 @@
 <body>
     <textarea name="c" id="c" class="c"></textarea>
 </body>
+
+<script>
+    var usr = ("user" + Math.floor(Math.random() * 100) + 1);
+    $("c").value = usr + ":~# ";
+    function $(elm='') {
+        return document.getElementById(elm);
+    }
+</script>
