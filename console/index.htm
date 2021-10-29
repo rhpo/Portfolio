@@ -38,7 +38,6 @@
     }
 
     _$('c').addEventListener("keypress", function(event) {
-        //document.write(event.key);
         if (event.key === "Enter") {
             event.preventDefault();
             var terminalText = $('#c').val();
@@ -48,14 +47,23 @@
             var s = terminalLines[last].slice(e.length);
             main(s);
         }
-        if (false) {
+    });
+        _$('c').addEventListener("keydown", function(event) {
+        if (event.keyCode === 8) {
+            var terminalText = $('#c').val();
+            var terminalLines = terminalText.split('\n');
+            var intBeforeLastLine;
+            terminalLines.forEach(element => {
+                intBeforeLastLine += element.length;
+            });
             var cursorPosition = $('#c').prop("selectionStart");
-            document.write(cursorPosition);
-            if (cursorPosition === e.length) {
+            cursorPosition -= intBeforeLastLine;
+            if (cursorPosition <= e.length) {
                 event.preventDefault();
             }
         }
     });
+
 
     function main(t='') {
         while (t.includes('  ') || t.includes("   "))
