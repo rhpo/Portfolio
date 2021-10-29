@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <script>
-    var usr = ("user" + new Math.floor(50000));
+    var usr = ("user" + Math.floor(Math.random() * 100) + 1);
     $("c").value = usr + ":~# ";
     function $(elm='') {
         return document.getElementById(elm);
