@@ -34,13 +34,7 @@
 	color: rgb(167, 167, 167);
 }
 	.headr {
-    background: linear-gradient(132deg, #02ff00, #5274fd);
-    background-size: 400% 400%;
 
-    -webkit-animation: AnimationName 6s ease infinite;
-    -moz-animation: AnimationName 6s ease infinite;
-    -o-animation: AnimationName 6s ease infinite;
-    animation: AnimationName 6s ease infinite;
 }
 
 @-webkit-keyframes AnimationName {
@@ -67,7 +61,15 @@
 </head>
 
 <body onload="g();">
-	<section class="hero is-info is-bold is-left headr" style="background: grey;">
+	<section class="hero is-info is-bold is-left" style="background: grey;
+	    background: linear-gradient(132deg, #02ff00, #5274fd);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 6s ease infinite;
+    -moz-animation: AnimationName 6s ease infinite;
+    -o-animation: AnimationName 6s ease infinite;
+    animation: AnimationName 6s ease infinite;
+	">
 		<div class="hero-content">
 			<div class="container">
 				<h1 class="title">
