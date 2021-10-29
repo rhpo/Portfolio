@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <style>
-    .c
-    {
-        scale: none;
+    .c {
+        resize: none;
         overflow: none;
         background-color: black;
         color: chartreuse;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100vh;
+        top: 0;
+        left: 0;
         border: none;
+        font-family: Consolas, monaco, monospace;
+        font-size: 17px;
+        caret-color: white;
+    }
+    body {
+        background-color: black;
     }
 </style>
 <head>
@@ -20,11 +25,108 @@
 <body>
     <textarea name="c" id="c" class="c"></textarea>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script>
-    var usr = ("user" + Math.floor(Math.random() * 100) + 1);
-    $("c").value = usr + ":~# ";
-    function $(elm='') {
+    function ranInt(m, x) {
+        return Math.floor(Math.random() * (x - m + 1)) + m;
+    }
+    var usr = (`user${ranInt(1000,9999)}`);
+    var e = usr + ":~# ";
+    _$("c").value= e;
+    function _$(elm='') {
         return document.getElementById(elm);
+    }
+
+    _$('c').addEventListener("keypress", function(event) {
+        //document.write(event.key);
+        if (event.key === "Enter") {
+            event.preventDefault();
+            var terminalText = $('#c').val();
+            var terminalLines = terminalText.split('\n');
+            var keys = Object.keys(terminalLines);
+            var last = keys[keys.length - 1];
+            var s = terminalLines[last].slice(e.length);
+            main(s);
+        }
+        if (event.keyCode) {
+            var cursorPosition = $('#c').prop("selectionStart");
+            document.write(cursorPosition);
+            if (cursorPosition === e.length) {
+                event.preventDefault();
+            }
+        }
+    });
+
+    function main(t='') {
+        while (t.includes('  ') || t.includes("   "))
+           {
+               t = t.replace("  ", ' ').replace("   ", " ");
+           }
+           while(t.startsWith(" "))
+           {
+               t = t.slice(1);
+           }
+        var arg = t.split(" ");
+        /*for (var i=0;i<arg.length;i++) {
+            if (arg[i] === '') {
+                arg.splice(i, 1);
+            }
+        }
+        while (arg[0] === '')
+           {
+                arg.splice(0, 1);
+           }*/
+
+        /*var all = arg.join('');
+        arg = all.split(" ");*/
+        var element = arg[0];
+        if (element === '') {
+           // document.write("(" + element + ")")
+            return terminal.reset();
+        }
+        var cmd = arg[0];
+        t=t.replace("|href|", window.location.href)
+            .replace("|user|", usr);
+        switch (cmd) {
+            case "echo":
+                terminal.lineLog(t.slice(5))
+                    break;
+
+                default:
+                    terminal.lineLog(cmd + ": Command not found.") 
+                    break;
+
+                case "terminal":
+                    if (arg.length < 2) {
+                        return terminal.lineLog(`${cmd}: Please specify the 2nd argument.\nExample: terminal {Command}`);
+                    }
+                    switch (arg[1]) {
+                        case "rename":
+                            if (arg.length < 3) {
+                                terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal renameuser MyNewName`);
+                                terminal.reset();
+                            }
+                            break;
+                    }
+                terminal.lineLog(t.slice(5))
+                    break;
+        }
+        terminal.reset();
+    }
+    var terminal = new Object();
+    terminal.log = function log(string="") {
+        _$('c').value+=string;
+    }
+    terminal.logLine = function log(string="") {
+        _$('c').value+=string+'\n';
+    }
+    terminal.lineLog = function lnLog(string="") {
+        _$('c').value+="\n"+string;
+    }
+    terminal.reset = function rst() {
+        _$('c').value+=`\n${e}`;
+    }
+    terminal.change = function change(string="") {
+        _$('c').value=string;
     }
 </script>
