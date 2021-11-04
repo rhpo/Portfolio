@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" crossorigin="anonymous"></script>
 <style>
     .c {
         resize: none;
@@ -114,6 +115,15 @@
                                 terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal renameuser MyNewName`);
                                 terminal.reset();
                             }
+                            break;
+                            case "color":
+                               if (arg.length < 3) {
+                                   terminal.lineLog(`${cmd}: Please specify a new terminal color (3rd argument not found!)`)
+                               }
+                               else {
+                                   $("#c").css("color", arg[2]);
+                                   terminal.lineLog("1");
+                               }
                             break;
                     }
                 terminal.lineLog(t.slice(5))
