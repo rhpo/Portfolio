@@ -76,26 +76,14 @@
                t = t.slice(1);
            }
         var arg = t.split(" ");
-        /*for (var i=0;i<arg.length;i++) {
-            if (arg[i] === '') {
-                arg.splice(i, 1);
-            }
-        }
-        while (arg[0] === '')
-           {
-                arg.splice(0, 1);
-           }*/
-
-        /*var all = arg.join('');
-        arg = all.split(" ");*/
         var element = arg[0];
-        if (element === '') {
-           // document.write("(" + element + ")")
+        if (element==='') {
             return terminal.reset();
         }
         var cmd = arg[0];
         t=t.replace("|href|", window.location.href)
-            .replace("|user|", usr);
+            .replace("|user|", usr)
+            .replace('|time|', Date.now().toString());
         switch (cmd) {
             case "echo":
                 terminal.lineLog(t.slice(5))
@@ -122,11 +110,10 @@
                                }
                                else {
                                    $("#c").css("color", arg[2]);
-                                   terminal.lineLog("1");
+                                   terminal.setState(true)
                                }
                             break;
                     }
-                terminal.lineLog(t.slice(5))
                     break;
         }
         terminal.reset();
@@ -147,4 +134,5 @@
     terminal.change = function change(string="") {
         _$('c').value=string;
     }
+    terminal.setState = (conditional) => { terminal.lineLog(conditional===false?0:1) }
 </script>
