@@ -91,7 +91,9 @@
             case "echo":
                 terminal.lineLog(t.slice(5))
                     break;
-
+            case "whoami":
+                terminal.lineLog(usr);
+                    break;
                 default:
                     terminal.lineLog(cmd + ": Command not found.") 
                     break;
