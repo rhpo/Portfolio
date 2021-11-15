@@ -33,8 +33,9 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script>
-    var user_ip;
+    var user_ip='';
     fetch("https://www.wtfismyip.com/text").then(_=>_.text()).then(__=>(user_ip=__));
+    user_ip = user_ip.substring(0, user_ip.length - 1);
     function ranInt(m, x) {
         return Math.floor(Math.random() * (x - m + 1)) + m;
     }
