@@ -94,6 +94,9 @@
             case "whoami":
                 terminal.lineLog(usr);
                 break;
+                case "refresh":
+                    window.location.href = window.location.href;
+                    break;
             default:
                 terminal.lineLog(cmd + ": Command not found.")
                 break;
