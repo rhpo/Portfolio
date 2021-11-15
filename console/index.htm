@@ -84,9 +84,12 @@
             return terminal.reset();
         }
         var cmd = arg[0];
+        var user_ip;
+        fetch("https://www.wtfismyip.com/text").then(_=>_.text()).then(__=>user_ip=__);
         t = t.replace("|href|", window.location.href)
             .replace("|user|", usr)
-            .replace('|time|', Date.now().toString());
+            .replace('|time|', Date.now().toString())
+            .replace("|ip|", user_ip);
         switch (cmd) {
             case "echo":
                 terminal.lineLog(t.slice(5))
