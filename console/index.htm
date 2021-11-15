@@ -18,12 +18,14 @@
         box-shadow: none;
         border-color: transparent;
     }
+
     body {
         background-color: black;
     }
 </style>
-<head>
 
+<head>
+   <title>Ramy's Console</title>
 </head>
 
 <body>
@@ -34,14 +36,14 @@
     function ranInt(m, x) {
         return Math.floor(Math.random() * (x - m + 1)) + m;
     }
-    var usr = (`user${ranInt(1000,9999)}`);
+    var usr = (`user${ranInt(1000, 9999)}`);
     var e = usr + ":~# ";
-    _$("c").value= e;
-    function _$(elm='') {
+    _$("c").value = e;
+    function _$(elm = '') {
         return document.getElementById(elm);
     }
 
-    _$('c').addEventListener("keypress", function(event) {
+    _$('c').addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
             var terminalText = $('#c').val();
@@ -52,7 +54,7 @@
             main(s);
         }
     });
-        _$('c').addEventListener("keydown", function(event) {
+    _$('c').addEventListener("keydown", function (event) {
         if (event.keyCode === 8) {
             var terminalText = $('#c').val();
             var terminalLines = terminalText.split('\n');
@@ -69,39 +71,37 @@
     });
 
 
-    function main(t='') {
-        while (t.includes('  ') || t.includes("   "))
-           {
-               t = t.replace("  ", ' ').replace("   ", " ");
-           }
-           while(t.startsWith(" "))
-           {
-               t = t.slice(1);
-           }
+    function main(t = '') {
+        while (t.includes('  ') || t.includes("   ")) {
+            t = t.replace("  ", ' ').replace("   ", " ");
+        }
+        while (t.startsWith(" ")) {
+            t = t.slice(1);
+        }
         var arg = t.split(" ");
         var element = arg[0];
-        if (element==='') {
+        if (element === '') {
             return terminal.reset();
         }
         var cmd = arg[0];
-        t=t.replace("|href|", window.location.href)
+        t = t.replace("|href|", window.location.href)
             .replace("|user|", usr)
             .replace('|time|', Date.now().toString());
         switch (cmd) {
             case "echo":
                 terminal.lineLog(t.slice(5))
-                    break;
+                break;
             case "whoami":
                 terminal.lineLog(usr);
-                    break;
-                default:
-                    terminal.lineLog(cmd + ": Command not found.") 
-                    break;
+                break;
+            default:
+                terminal.lineLog(cmd + ": Command not found.")
+                break;
 
-                case "terminal":
-                    if (arg.length < 2) {
-                        return terminal.lineLog(`${cmd}: Please specify the 2nd argument.\nExample: terminal {Command}`);
-                    }
+            case "terminal":
+                if (arg.length < 2) {
+                    return terminal.lineLog(`${cmd}: Please specify the 2nd argument.\nExample: terminal {Command}`);
+                } else {
                     switch (arg[1]) {
                         case "rename":
                             if (arg.length < 3) {
@@ -109,35 +109,37 @@
                                 terminal.reset();
                             }
                             break;
-                            case "color":
-                               if (arg.length < 3) {
-                                   terminal.lineLog(`${cmd}: Please specify a new terminal color (3rd argument not found!)`)
-                               }
-                               else {
-                                   $("#c").css("color", arg[2]);
-                                   terminal.setState(true)
-                               }
+                        case "color":
+                            if (arg.length < 3) {
+                                terminal.lineLog(`${cmd}: Please specify a new terminal color (3rd argument not found!)`)
+                            }
+                            else {
+                                $("#c").css("color", arg[2]);
+                                terminal.setState(true)
+                            }
                             break;
                     }
-                    break;
+                }
+                break;
         }
         terminal.reset();
     }
     var terminal = new Object();
-    terminal.log = function log(string="") {
-        _$('c').value+=string;
+    terminal.log = function log(string = "") {
+        _$('c').value += string;
     }
-    terminal.logLine = function log(string="") {
-        _$('c').value+=string+'\n';
+    terminal.logLine = function log(string = "") {
+        _$('c').value += string + '\n';
     }
-    terminal.lineLog = function lnLog(string="") {
-        _$('c').value+="\n"+string;
+    terminal.lineLog = function lnLog(string = "") {
+        _$('c').value += "\n" + string;
+        document.title = "Console | " + string;
     }
     terminal.reset = function rst() {
-        _$('c').value+=`\n${e}`;
+        _$('c').value += `\n${e}`;
     }
-    terminal.change = function change(string="") {
-        _$('c').value=string;
+    terminal.change = function change(string = "") {
+        _$('c').value = string;
     }
-    terminal.setState = (conditional) => { terminal.lineLog(conditional===false?0:1) }
+    terminal.setState = (conditional) => { terminal.lineLog(conditional === false ? 0 : 1) }
 </script>
