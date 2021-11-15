@@ -133,6 +133,11 @@
         }
         terminal.reset();
     }
+
+    window.onload = () => {
+        document.getElementById("c").focus();
+    }
+
     var terminal = new Object();
     terminal.log = function log(string = "") {
         _$('c').value += string;
