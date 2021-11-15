@@ -107,6 +107,8 @@
                             if (arg.length < 3) {
                                 terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal renameuser MyNewName`);
                                 terminal.reset();
+                            } else {
+                                usr=arg[2]
                             }
                             break;
                         case "color":
