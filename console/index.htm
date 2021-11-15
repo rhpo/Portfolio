@@ -103,7 +103,7 @@
                     case "clear":
                         case "cls":
                             case "reset":
-                                terminal.change(e);
+                                return terminal.change(e);
                                 break;
             default:
                 terminal.lineLog(cmd + ": Command not found.")
