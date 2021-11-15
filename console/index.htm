@@ -97,6 +97,10 @@
                 case "refresh":
                     window.location.href = window.location.href;
                     break;
+                    case "clear":
+                        case "cls":
+                            case "reset":
+                                terminal.change("");
             default:
                 terminal.lineLog(cmd + ": Command not found.")
                 break;
