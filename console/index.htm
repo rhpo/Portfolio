@@ -118,7 +118,6 @@
                         case "rename":
                             if (arg.length < 3) {
                                 terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal rename MyNewName`);
-                                terminal.reset();
                             } else {
                                 usr=arg[2];
                                 e = usr+":~# ";
