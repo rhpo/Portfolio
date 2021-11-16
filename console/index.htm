@@ -120,7 +120,8 @@
                                 terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal rename MyNewName`);
                                 terminal.reset();
                             } else {
-                                usr=arg[2]
+                                usr=arg[2];
+                                e = usr+":~# ";
                             }
                             break;
                         case "color":
