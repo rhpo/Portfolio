@@ -34,6 +34,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script>
     var user_ip='';
+    var al = ["*"];
     fetch("https://www.wtfismyip.com/text").then(_=>_.text()).then(__=>(user_ip=__));
     user_ip = user_ip.substring(0, user_ip.length - 1);
     function ranInt(m, x) {
@@ -47,14 +48,27 @@
     }
 
     _$('c').addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            var terminalText = $('#c').val();
-            var terminalLines = terminalText.split('\n');
-            var keys = Object.keys(terminalLines);
-            var last = keys[keys.length - 1];
-            var s = terminalLines[last].slice(e.length);
-            main(s);
+        var includes = false;
+        if (al[0]==='*') {
+            includes = true;
+        } else {
+            al.forEach(key => {
+                if (event.key === key)
+                includes = !includes;
+            });
+        }
+        if (includes) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                var terminalText = $('#c').val();
+                var terminalLines = terminalText.split('\n');
+                var keys = Object.keys(terminalLines);
+                var last = keys[keys.length - 1];
+                var s = terminalLines[last].slice(e.length);
+                main(s);
+            }
+        } else {
+            return event.preventDefault();
         }
     });
     _$('c').addEventListener("keydown", function (event) {
@@ -144,13 +158,19 @@
                         terminal.lineLog(`${cmd}: Please specify the url to fetch/curl.`);
                         return terminal.reset();
                     }
-                    fetch(arg[1]).then(_=>_.text()).then(res=>terminal.lineLog(res));
+                    terminal.allowOnly("");
+                    try {
+                        fetch(arg[1]).then(_=>_.text()).then(res=>terminal.lineLog(res + "\n" + e));
+                    } catch (err) {
+                        terminal.logLine(`${cmd}: failed to downloadString host '${arg[1]}'.\nJS ERR: ${err}`);
+                    }
+                    terminal.allowOnly("*")
         }
         terminal.reset();
     }
 
     window.onload = () => {
-        document.getElementById("c").focus();
+        //document.getElementById("c").focus();
     }
 
     var terminal = new Object();
@@ -171,4 +191,8 @@
         _$('c').value = string;
     }
     terminal.setState = (conditional) => { terminal.lineLog(conditional === false ? 0 : 1) }
+    terminal.allowOnly = (arr) => {
+        arr??"";
+        al = arr.split('');
+    }
 </script>
