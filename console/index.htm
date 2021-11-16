@@ -120,7 +120,7 @@
                                 terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal rename MyNewName`);
                             } else {
                                 if (arg[2]===usr) {
-                                    terminal.lineLog(`${cmd}: TypeError=> The new Username is simillar to the current.`)
+                                    terminal.lineLog(`${cmd}: TypeError" The new Username is simillar to the current.`)
                                     return terminal.reset();
                                 }
                                 usr=arg[2];
@@ -139,6 +139,12 @@
                     }
                 }
                 break;
+                case "fetch":case "curl":
+                    if (arg.length < 2) {
+                        terminal.lineLog(`${cmd}: Please specify the url to fetch/curl.`);
+                        return terminal.reset();
+                    }
+                    fetch(arg[1]).then(_=>_.text()).then(res=>terminal.lineLog(res));
         }
         terminal.reset();
     }
