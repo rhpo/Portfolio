@@ -119,6 +119,10 @@
                             if (arg.length < 3) {
                                 terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal rename MyNewName`);
                             } else {
+                                if (arg[2]===usr) {
+                                    terminal.lineLog(`${cmd}: TypeError=> The new Username is simillar to the current.`)
+                                    return terminal.reset();
+                                }
                                 usr=arg[2];
                                 e = usr+":~# ";
                             }
