@@ -172,12 +172,15 @@
                 break;
                 case "lastexp":
                     terminal.printf(`(~) Last SYS exception : ${lastexp}`);
-                case "sleep":
+                case "sleeprint":
                 if (arg.length < 3) {
                     terminal.printf(`${cmd}: please specify 3 args!`);
                     return terminal.reset();
                 }
                 try {
+                    if (!isNaN(arg[1]) || !isNaN(arg[2])) {
+                        throw new Error("Failed to parse Int.")
+                    }
                     terminal.allowOnly("");
                     var sec = parseInt(arg[1]);
                     var times = parseInt(arg[2]);
