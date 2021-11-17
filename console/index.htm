@@ -115,10 +115,10 @@
             .replace("|newline|", "\n");
         switch (cmd) {
             case "echo":
-                terminal.lineLog(t.slice(5))
+                terminal.printf(t.slice(5))
                 break;
             case "whoami":
-                terminal.lineLog(usr);
+                terminal.printf(usr);
                 break;
                 case "refresh":
                     window.location.href = window.location.href;
@@ -129,20 +129,20 @@
                                 return terminal.change(e);
                                 break;
             default:
-                terminal.lineLog(cmd + ": Command not found.")
+                terminal.printf(cmd + ": Command not found.")
                 break;
 
             case "terminal":
                 if (arg.length < 2) {
-                    return terminal.lineLog(`${cmd}: Please specify the 2nd argument.\nExample: terminal {Command}`);
+                    return terminal.printf(`${cmd}: Please specify the 2nd argument.\nExample: terminal {Command}`);
                 } else {
                     switch (arg[1]) {
                         case "rename":
                             if (arg.length < 3) {
-                                terminal.lineLog(`${cmd}: Please specify the new Name.\nExample: terminal rename MyNewName`);
+                                terminal.printf(`${cmd}: Please specify the new Name.\nExample: terminal rename MyNewName`);
                             } else {
                                 if (arg[2]===usr) {
-                                    terminal.lineLog(`${cmd}: TypeError" The new Username is simillar to the current.`)
+                                    terminal.printf(`${cmd}: TypeError" The new Username is simillar to the current.`)
                                     return terminal.reset();
                                 }
                                 usr=arg[2];
@@ -152,7 +152,7 @@
                             break;
                         case "color":
                             if (arg.length < 3) {
-                                terminal.lineLog(`${cmd}: Please specify a new terminal color (3rd argument not found!)`)
+                                terminal.printf(`${cmd}: Please specify a new terminal color (3rd argument not found!)`)
                             }
                             else {
                                 $("#c").css("color", arg[2]);
@@ -163,36 +163,36 @@
                 }
                 break;
                 case "lastexp":
-                    terminal.lineLog(`(~) Last SYS exception : ${lastexp}`);
+                    terminal.printf(`(~) Last SYS exception : ${lastexp}`);
                 case "sleep":
                 if (arg.length < 3) {
-                    terminal.lineLog(`${cmd}: please specify 3 args!`);
+                    terminal.printf(`${cmd}: please specify 3 args!`);
                     return terminal.reset();
                 }
                 try {
                     terminal.allowOnly("");
                     var sec = parseInt(arg[0]);
                     var times = parseInt(arg[1]);
-                    var repeatIndex=0;
+                    var repeatIndex=1;
                     for (repeatIndex; repeatIndex<times; repeatIndex++) {
                         await sleep(sec);
-                        terminal.lineLog(repeatIndex.toString());
+                        terminal.printf(repeatIndex.toString());
                     }
                     terminal.allowOnly("*");
                 } catch (err) {
-                    terminal.lineLog(`${cmd}: Unhandled Exception, use: 'lastexp' command to see the JS-SYS Error.`);
+                    terminal.printf(`${cmd}: Unhandled Exception, use: 'lastexp' command to see the JS-SYS Error.`);
                     lastexp=err;
                 }
                 break;
                 case "fetch":
                     case "curl":
                     if (arg.length < 2) {
-                        terminal.lineLog(`${cmd}: Please specify the url to fetch/curl.`);
+                        terminal.printf(`${cmd}: Please specify the url to fetch/curl.`);
                         return terminal.reset();
                     }
                     terminal.allowOnly("");
                     try {
-                        fetch(arg[1]).then(_=>_.text()).then(res=>terminal.lineLog(res + "\n" + e));
+                        fetch(arg[1]).then(_=>_.text()).then(res=>terminal.printf(res + "\n" + e));
                     } catch (err) {
                         terminal.logLine(`${cmd}: failed to downloadString host '${arg[1]}'.\nJS ERR: ${err}`);
                     }
@@ -212,9 +212,10 @@
     terminal.logLine = function log(string = "") {
         _$('c').value += string + '\n';
     }
-    terminal.lineLog = function lnLog(string = "") {
+    terminal.printf = function lnLog(string = "") {
         _$('c').value += "\n" + string;
         document.title = "Console | " + string;
+        _$("c").scrollTop = _$("c").scrollHeight;
     }
     terminal.reset = function rst() {
         _$('c').value += `\n${e}`;
@@ -222,7 +223,7 @@
     terminal.change = function change(string = "") {
         _$('c').value = string;
     }
-    terminal.setState = (conditional) => { terminal.lineLog(conditional === false ? 0 : 1) }
+    terminal.setState = (conditional) => { terminal.printf(conditional === false ? 0 : 1) }
     terminal.allowOnly = (arr) => {
         arr??"";
         al = arr.split('');
