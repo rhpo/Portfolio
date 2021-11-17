@@ -56,6 +56,7 @@
     }
     user_ip = user_ip.substring(0, user_ip.length - 1);
     _$('c').addEventListener("keypress", function (event) {
+        _$("c").scrollTop = _$('c').scrollWidth;
         var includes = false;
         if (al[0]==='*') {
             includes = true;
@@ -165,7 +166,7 @@
                                 terminal.printf("(~) Loading settings...");
                                 break;
                             default:
-                                terminal.printf("terminal: the command " + arg[1] + "doesn't exist.")
+                                terminal.printf("terminal: the command " + arg[1] + " doesn't exist.")
                                 break;
                     }
                 }
