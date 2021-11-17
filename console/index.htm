@@ -175,7 +175,7 @@
                     var times = parseInt(arg[1]);
                     var repeatIndex=0;
                     for (repeatIndex; repeatIndex<times; repeatIndex++) {
-                        await sleep(1000);
+                        await sleep(sec);
                         terminal.lineLog(repeatIndex.toString());
                     }
                     terminal.allowOnly("*");
