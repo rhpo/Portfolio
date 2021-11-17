@@ -32,6 +32,7 @@
     <textarea name="c" id="c" class="c" spellcheck="false"></textarea>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
     var user_ip='';
@@ -159,6 +160,13 @@
                                 terminal.setState(true)
                             }
                             break;
+                            case "settings":
+                                terminal.allowOnly("");
+                                terminal.printf("(~) Loading settings...");
+                                break;
+                            default:
+                                terminal.printf("terminal: the command " + arg[1] + "doesn't exist.")
+                                break;
                     }
                 }
                 break;
