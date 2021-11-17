@@ -50,7 +50,7 @@
     function _$(elm = '') {
         return document.getElementById(elm);
     }
-
+    user_ip = user_ip.substring(0, user_ip.length - 1);
     _$('c').addEventListener("keypress", function (event) {
         var includes = false;
         if (al[0]==='*') {
@@ -108,7 +108,8 @@
         t = t.replace("|href|", window.location.href)
             .replace("|user|", usr)
             .replace('|time|', Date.now().toString())
-            .replace("|ip|", user_ip);
+            .replace("|ip|", user_ip.endsWith("\n")?user_ip.substring(0, user_ip.length - 1):user_ip)
+            .replace("|newline|", "\n");
         switch (cmd) {
             case "echo":
                 terminal.lineLog(t.slice(5))
@@ -170,11 +171,11 @@
                     var sec = parseInt(arg[0]);
                     var times = parseInt(arg[1]);
                     var repeatIndex=0;
-                    do {
+                    for (repeatIndex; repeatIndex<times; repeatIndex++) {
                         setTimeout(function(){
                             terminal.lineLog(repeatIndex.toString())
                         }, sec*1000);
-                    } while (repeatIndex < times)
+                    }
                     terminal.allowOnly("*");
                 } catch (err) {
                     terminal.lineLog(`${cmd}: Unhandled Exception, use: 'lastexp' command to see the JS-SYS Error.`);
