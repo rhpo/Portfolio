@@ -44,6 +44,9 @@
     function ranInt(m, x) {
         return Math.floor(Math.random() * (x - m + 1)) + m;
     }
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
     var usr = (`user${ranInt(1000, 9999)}`);
     var e = usr + ":~# ";
     _$("c").value = e;
@@ -92,7 +95,7 @@
     });
 
 
-    function main(t = '') {
+    async function main(t = '') {
         while (t.includes('  ') || t.includes("   ")) {
             t = t.replace("  ", ' ').replace("   ", " ");
         }
@@ -172,9 +175,8 @@
                     var times = parseInt(arg[1]);
                     var repeatIndex=0;
                     for (repeatIndex; repeatIndex<times; repeatIndex++) {
-                        setTimeout(function(){
-                            terminal.lineLog(repeatIndex.toString())
-                        }, sec*1000);
+                        await sleep(1000);
+                        terminal.lineLog(repeatIndex.toString());
                     }
                     terminal.allowOnly("*");
                 } catch (err) {
@@ -199,7 +201,7 @@
     }
 
     window.onload = () => {
-        //document.getElementById("c").focus();
+        document.getElementById("c").focus();
     }
 
     var terminal = new Object();
