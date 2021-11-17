@@ -33,8 +33,12 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script>
+
     var user_ip='';
     var al = ["*"];
+    var lastexp="No last JS Exceptions found!";
+
+
     fetch("https://www.wtfismyip.com/text").then(_=>_.text()).then(__=>(user_ip=__));
     user_ip = user_ip.substring(0, user_ip.length - 1);
     function ranInt(m, x) {
@@ -139,6 +143,7 @@
                                 }
                                 usr=arg[2];
                                 e = usr+":~# ";
+                                terminal.setState(true);
                             }
                             break;
                         case "color":
@@ -153,7 +158,30 @@
                     }
                 }
                 break;
-                case "fetch":case "curl":
+                case "lastexp":
+                    terminal.lineLog(`(~) Last SYS exception : ${lastexp}`);
+                case "sleep":
+                if (arg.length < 3) {
+                    terminal.lineLog(`${cmd}: please specify 3 args!`);
+                    return terminal.reset();
+                }
+                try {
+                    terminal.allowOnly("");
+                    var sec = parseInt(arg[0]);
+                    var times = parseInt(arg[1]);
+                    var repeatIndex=0;
+                    do {
+                        setTimeout(function(){
+                            terminal.lineLog(repeatIndex.toString())
+                        }, sec*1000);
+                    } while (repeatIndex < times)
+                    terminal.allowOnly("*");
+                } catch (err) {
+                    terminal.lineLog(`${cmd}: Unhandled Exception, use: 'lastexp' command to see the JS-SYS Error.`);
+                    lastexp=err;
+                }
+                case "fetch":
+                    case "curl":
                     if (arg.length < 2) {
                         terminal.lineLog(`${cmd}: Please specify the url to fetch/curl.`);
                         return terminal.reset();
