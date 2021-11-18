@@ -25,7 +25,7 @@
 </style>
 
 <head>
-   <title>Ramy's Console</title>
+    <title>Ramy's Console</title>
 </head>
 
 <body>
@@ -35,12 +35,37 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
-    var user_ip='';
+    var user_ip = '';
     var al = ["*"];
-    var lastexp="No last JS Exceptions found!";
+    var lastexp = "No last JS Exceptions found!";
 
+    $("#c").bind("keydown click focus", function () { // initialise the cadet position changed event
+        console.log(cursor_changed(this));
+    });
+    function cursor_changed(element) {
+        var new_position = getCursorPosition(element);
+        if (new_position !== last_position) {
+            last_position = new_position;
+            return true;
+        }
+        return false;
+    }
 
-    fetch("https://www.wtfismyip.com/text").then(_=>_.text()).then(__=>(user_ip=__));
+    function getCursorPosition(element) {
+        var el = $(element).get(0);
+        var pos = 0;
+        if ('selectionStart' in el) {
+            pos = el.selectionStart;
+        } else if ('selection' in document) {
+            el.focus();
+            var Sel = document.selection.createRange();
+            var SelLength = document.selection.createRange().text.length;
+            Sel.moveStart('character', -el.value.length);
+            pos = Sel.text.length - SelLength;
+        }
+        return pos;
+    }
+    fetch("https://www.wtfismyip.com/text").then(_ => _.text()).then(__ => (user_ip = __));
     user_ip = user_ip.substring(0, user_ip.length - 1);
     function ranInt(m, x) {
         return Math.floor(Math.random() * (x - m + 1)) + m;
@@ -58,23 +83,27 @@
     _$('c').addEventListener("keypress", function (event) {
         _$("c").scrollTop = _$('c').scrollWidth;
         var includes = false;
-        if (al[0]==='*') {
+        if (al[0] === '*') {
             includes = true;
         } else {
             al.forEach(key => {
                 if (event.key === key)
-                includes = !includes;
+                    includes = !includes;
             });
         }
         if (includes) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                var terminalText = $('#c').val();
-                var terminalLines = terminalText.split('\n');
-                var keys = Object.keys(terminalLines);
-                var last = keys[keys.length - 1];
-                var s = terminalLines[last].slice(e.length);
-                main(s);
+            switch (event.key) {
+                case "Enter":
+                    event.preventDefault();
+                    var terminalText = $('#c').val();
+                    var terminalLines = terminalText.split('\n');
+                    var keys = Object.keys(terminalLines);
+                    var last = keys[keys.length - 1];
+                    var s = terminalLines[last].slice(e.length);
+                    main(s);
+                    break;
+                case "Backspace":
+                    break;
             }
         } else {
             return event.preventDefault();
@@ -113,7 +142,7 @@
         t = t.replace("|href|", window.location.href)
             .replace("|user|", usr)
             .replace('|time|', Date.now().toString())
-            .replace("|ip|", user_ip.endsWith("\n")?user_ip.substring(0, user_ip.length - 1):user_ip)
+            .replace("|ip|", user_ip.endsWith("\n") ? user_ip.substring(0, user_ip.length - 1) : user_ip)
             .replace("|newline|", "\n");
         switch (cmd) {
             case "echo":
@@ -122,18 +151,17 @@
             case "whoami":
                 terminal.printf(usr);
                 break;
-                case "refresh":
-                    window.location.href = window.location.href;
-                    break;
-                    case "clear":
-                        case "cls":
-                            case "reset":
-                                return terminal.change(e);
-                                break;
+            case "refresh":
+                window.location.href = window.location.href;
+                break;
+            case "clear":
+            case "cls":
+            case "reset":
+                return terminal.change(e);
+                break;
             default:
                 terminal.printf(cmd + ": Command not found.")
                 break;
-
             case "terminal":
                 if (arg.length < 2) {
                     return terminal.printf(`${cmd}: Please specify the 2nd argument.\nExample: terminal {Command}`);
@@ -143,12 +171,12 @@
                             if (arg.length < 3) {
                                 terminal.printf(`${cmd}: Please specify the new Name.\nExample: terminal rename MyNewName`);
                             } else {
-                                if (arg[2]===usr) {
+                                if (arg[2] === usr) {
                                     terminal.printf(`${cmd}: TypeError" The new Username is simillar to the current.`)
                                     return terminal.reset();
                                 }
-                                usr=arg[2];
-                                e = usr+":~# ";
+                                usr = arg[2];
+                                e = usr + ":~# ";
                                 terminal.setState(true);
                             }
                             break;
@@ -161,19 +189,19 @@
                                 terminal.setState(true)
                             }
                             break;
-                            case "settings":
-                                terminal.allowOnly("");
-                                terminal.printf("(~) Loading settings...");
-                                break;
-                            default:
-                                terminal.printf("terminal: the command " + arg[1] + " doesn't exist.")
-                                break;
+                        case "settings":
+                            terminal.allowOnly("");
+                            terminal.printf("(~) Loading settings...");
+                            break;
+                        default:
+                            terminal.printf("terminal: the command " + arg[1] + " doesn't exist.")
+                            break;
                     }
                 }
                 break;
-                case "lastexp":
-                    terminal.printf(`(~) Last SYS exception : ${lastexp}`);
-                case "sleeprint":
+            case "lastexp":
+                terminal.printf(`(~) Last SYS exception : ${lastexp}`);
+            case "sleeprint":
                 if (arg.length < 3) {
                     terminal.printf(`${cmd}: please specify 3 args!`);
                     return terminal.reset();
@@ -186,30 +214,30 @@
                     var sec = parseInt(arg[1]);
                     var times = parseInt(arg[2]);
                     console.log(`${sec}, ${times}`);
-                    var repeatIndex=1;
-                    for (repeatIndex; repeatIndex<times; repeatIndex++) {
+                    var repeatIndex = 1;
+                    for (repeatIndex; repeatIndex < times; repeatIndex++) {
                         await sleep(sec);
                         terminal.printf(repeatIndex.toString());
                     }
                     terminal.allowOnly("*");
                 } catch (err) {
                     terminal.printf(`${cmd}: Unhandled Exception, use: 'lastexp' command to see the JS-SYS Error.`);
-                    lastexp=err;
+                    lastexp = err;
                 }
                 break;
-                case "fetch":
-                    case "curl":
-                    if (arg.length < 2) {
-                        terminal.printf(`${cmd}: Please specify the url to fetch/curl.`);
-                        return terminal.reset();
-                    }
-                    terminal.allowOnly("");
-                    try {
-                        fetch(arg[1]).then(_=>_.text()).then(res=>terminal.printf(res + "\n" + e));
-                    } catch (err) {
-                        terminal.logLine(`${cmd}: failed to downloadString host '${arg[1]}'.\nJS ERR: ${err}`);
-                    }
-                    terminal.allowOnly("*")
+            case "fetch":
+            case "curl":
+                if (arg.length < 2) {
+                    terminal.printf(`${cmd}: Please specify the url to fetch/curl.`);
+                    return terminal.reset();
+                }
+                terminal.allowOnly("");
+                try {
+                    fetch(arg[1]).then(_ => _.text()).then(res => terminal.printf(res + "\n" + e));
+                } catch (err) {
+                    terminal.logLine(`${cmd}: failed to downloadString host '${arg[1]}'.\nJS ERR: ${err}`);
+                }
+                terminal.allowOnly("*")
         }
         terminal.reset();
     }
@@ -238,7 +266,7 @@
     }
     terminal.setState = (conditional) => { terminal.printf(conditional === false ? 0 : 1) }
     terminal.allowOnly = (arr) => {
-        arr??"";
+        arr ?? "";
         al = arr.split('');
     }
 </script>
