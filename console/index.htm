@@ -40,8 +40,15 @@
     var lastexp = "No last JS Exceptions found!";
     var last_position = 0;
 
-    $("#c").bind("keydown click focus", function () { // initialise the cadet position changed event
-        console.log(cursor_changed(this));
+    $("#c").bind("keydown click focus", function (event) { // initialise the cadet position changed event
+        if (cursor_changed(this)) {
+            var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
+            var before_chars = _$('c').value.length - line.length;
+            var __t = getCursorPosition(_$('c'));
+            if (__t <= before_chars) {
+                event.preventDefault();
+            }
+        }
     });
     function cursor_changed(element) {
         var new_position = getCursorPosition(element);
