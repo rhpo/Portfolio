@@ -43,7 +43,7 @@
     $("#c").bind("keydown click focus", function (event) { // initialise the cadet position changed event
         if (true) {
             var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-            var before_chars = _$('c').value.length - line.length;
+            var before_chars = _$('c').value.length + line.length;
             var __t = getCursorPosition(_$('c'));
             if (__t <= before_chars) {
                 event.preventDefault();
