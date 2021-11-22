@@ -41,18 +41,7 @@
     var last_position = 0;
 
     $("#c").bind("keydown click focus", function (event) { // initialise the cadet position changed event
-        if (true) {
-            var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-            var before_chars = _$('c').value.length;
-            var __t = getCursorPosition(_$('c'));
-            if (__t < before_chars - (line.length + e.length)) {
-                event.preventDefault();
-            } else if (__t == before_chars) {
-                if (event.key == "Backspace") {
-                    event.preventDefault();
-                }
-            }
-        }
+
     });
     function cursor_changed(element) {
         var new_position = getCursorPosition(element);
@@ -95,6 +84,9 @@
     _$('c').addEventListener("keypress", function (event) {
         _$("c").scrollTop = _$('c').scrollWidth;
         var includes = false;
+        var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
+        var before_chars = _$('c').value.length;
+        var __t = getCursorPosition(_$('c'));
         if (al[0] === '*') {
             includes = true;
         } else {
@@ -115,6 +107,13 @@
                     main(s);
                     break;
                 case "Backspace":
+                    if (__t <= before_chars - line.length + e.length) {
+                        event.preventDefault();
+                    } else if (__t == before_chars) {
+                        if (event.key == "Backspace") {
+                            event.preventDefault();
+                        }
+                    }
                     break;
             }
         } else {
