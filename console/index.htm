@@ -41,7 +41,9 @@
     var last_position = 0;
 
     $("#c").bind("keydown click focus", function (event) { // initialise the cadet position changed event
-
+        var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
+        var before_chars = _$('c').value.length; //12
+        var __t = getCursorPosition(_$('c'));
     });
     function cursor_changed(element) {
         var new_position = getCursorPosition(element);
@@ -83,11 +85,13 @@
     user_ip = user_ip.substring(0, user_ip.length - 1);
     _$('c').addEventListener("keypress", function (event) {
         _$("c").scrollTop = _$('c').scrollWidth;
+
         var includes = false;
         var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-        var before_chars = _$('c').value.length;
+        var before_chars = _$('c').value.length; //12
         var __t = getCursorPosition(_$('c'));
-        if (al[0] === '*') {
+
+        if (al[0] === '*' && al.length === 1) {
             includes = true;
         } else {
             al.forEach(key => {
@@ -109,10 +113,6 @@
                 case "Backspace":
                     if (__t <= before_chars - line.length + e.length) {
                         event.preventDefault();
-                    } else if (__t == before_chars) {
-                        if (event.key == "Backspace") {
-                            event.preventDefault();
-                        }
                     }
                     break;
             }
@@ -122,7 +122,7 @@
     });
     _$('c').addEventListener("keydown", function (event) {
         if (event.keyCode === 8) {
-            var terminalText = $('#c').val();
+        /*    var terminalText = $('#c').val();
             var terminalLines = terminalText.split('\n');
             var intBeforeLastLine;
             terminalLines.forEach(element => {
@@ -133,7 +133,7 @@
             if (cursorPosition <= e.length) {
                 event.preventDefault();
             }
-        }
+        }*/
     });
 
 
