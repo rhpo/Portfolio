@@ -45,7 +45,7 @@
             var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
             var before_chars = _$('c').value.length;
             var __t = getCursorPosition(_$('c'));
-            if (__t < before_chars) {
+            if (__t < before_chars - (line.length + e.length)) {
                 event.preventDefault();
             } else if (__t == before_chars) {
                 if (event.key == "Backspace") {
