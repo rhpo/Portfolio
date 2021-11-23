@@ -42,7 +42,7 @@
 
     $("#c").bind("keydown click focus", function (event) { // initialise the cadet position changed event
         var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-        var before_chars = _$('c').value.length; //12
+        var before_chars = _$('c').value.length; 
         var __t = getCursorPosition(_$('c'));
     });
     function cursor_changed(element) {
@@ -97,7 +97,6 @@
             });
         }
         if (includes) {
-            console.log(`Event Key Detected: ${event.key}`)
             switch (event.key) {
                 case "Enter":
                     event.preventDefault();
@@ -108,8 +107,6 @@
                     var s = terminalLines[last].slice(e.length);
                     main(s);
                     break;
-                case "Backspace":
-                    break;
             }
         } else {
             return event.preventDefault();
@@ -117,25 +114,11 @@
     });
     _$('c').addEventListener("keydown", function (event) {
         if (event.keyCode === 8) {
-            /*    var terminalText = $('#c').val();
-                var terminalLines = terminalText.split('\n');
-                var intBeforeLastLine;
-                terminalLines.forEach(element => {
-                    intBeforeLastLine += element.length;
-                });
-                var cursorPosition = $('#c').prop("selectionStart");
-                cursorPosition -= intBeforeLastLine;
-                if (cursorPosition <= e.length) {
-                    event.preventDefault();
-                }*/
             var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-            var before_chars = _$('c').value.length; //12
+            var before_chars = _$('c').value.length; 
             var __t = getCursorPosition(_$('c'));
             if (__t <= before_chars - line.length + e.length) {
                 event.preventDefault();
-                console.log(__t <= before_chars - line.length + e.length)
-            } else {
-                console.log(__t <= before_chars - line.length + e.length);
             }
         }
     });
