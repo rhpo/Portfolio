@@ -219,7 +219,7 @@
                     return terminal.reset();
                 }
                 try {
-                    if (!isNaN(arg[1]) || !isNaN(arg[2])) {
+                    if (isNaN(arg[1]) || isNaN(arg[2])) {
                         throw new Error("Failed to parse Int.")
                     }
                     terminal.allowOnly("");
