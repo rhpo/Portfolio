@@ -113,11 +113,15 @@
         }
     });
     _$('c').addEventListener("keydown", function (event) {
-        if (event.keyCode === 8) {
-            var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
+        var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
             var before_chars = _$('c').value.length; 
             var __t = getCursorPosition(_$('c'));
+        if (event.keyCode === 8) {
             if (__t <= before_chars - line.length + e.length) {
+                event.preventDefault();
+            }
+        } else {
+            if (__t < before_chars - line.length + e.length) {
                 event.preventDefault();
             }
         }
