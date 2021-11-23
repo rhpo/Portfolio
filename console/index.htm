@@ -87,9 +87,6 @@
         _$("c").scrollTop = _$('c').scrollWidth;
 
         var includes = false;
-        var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-        var before_chars = _$('c').value.length; //12
-        var __t = getCursorPosition(_$('c'));
 
         if (al[0] === '*' && al.length === 1) {
             includes = true;
@@ -112,12 +109,6 @@
                     main(s);
                     break;
                 case "Backspace":
-                    if (__t <= before_chars - line.length + e.length) {
-                        event.preventDefault();
-                        console.log(__t <= before_chars - line.length + e.length)
-                    } else {
-                        console.log(__t <= before_chars - line.length + e.length);
-                    }
                     break;
             }
         } else {
@@ -126,17 +117,26 @@
     });
     _$('c').addEventListener("keydown", function (event) {
         if (event.keyCode === 8) {
-        /*    var terminalText = $('#c').val();
-            var terminalLines = terminalText.split('\n');
-            var intBeforeLastLine;
-            terminalLines.forEach(element => {
-                intBeforeLastLine += element.length;
-            });
-            var cursorPosition = $('#c').prop("selectionStart");
-            cursorPosition -= intBeforeLastLine;
-            if (cursorPosition <= e.length) {
+            /*    var terminalText = $('#c').val();
+                var terminalLines = terminalText.split('\n');
+                var intBeforeLastLine;
+                terminalLines.forEach(element => {
+                    intBeforeLastLine += element.length;
+                });
+                var cursorPosition = $('#c').prop("selectionStart");
+                cursorPosition -= intBeforeLastLine;
+                if (cursorPosition <= e.length) {
+                    event.preventDefault();
+                }*/
+            var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
+            var before_chars = _$('c').value.length; //12
+            var __t = getCursorPosition(_$('c'));
+            if (__t <= before_chars - line.length + e.length) {
                 event.preventDefault();
-            }*/
+                console.log(__t <= before_chars - line.length + e.length)
+            } else {
+                console.log(__t <= before_chars - line.length + e.length);
+            }
         }
     });
 
