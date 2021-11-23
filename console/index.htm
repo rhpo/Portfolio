@@ -113,7 +113,8 @@
                 case "Backspace":
                     if (__t <= before_chars - line.length + e.length) {
                         event.preventDefault();
-                    }
+                        console.log(__t <= before_chars - line.length + e.length)
+                    } else console.log(__t <= before_chars - line.length + e.length);
                     break;
             }
         } else {
