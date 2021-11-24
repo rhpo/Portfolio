@@ -53,7 +53,15 @@
         }
         return false;
     }
-
+    function removeAt(arr, val) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === val) {
+                    arr.splice(i, 1);
+                    i--;
+                }
+            }
+            return arr;
+        }
     function getCursorPosition(element) {
         var el = $(element).get(0);
         var pos = 0;
@@ -76,7 +84,7 @@
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
-    var usr = (`user${ranInt(1000, 9999)}`);
+    var usr = (`user${ranInt(100, 999)}`);
     var e = usr + ":~# ";
     _$("c").value = e;
     function _$(elm = '') {
@@ -127,7 +135,6 @@
         }
     });
 
-
     async function main(t = '') {
         while (t.includes('  ') || t.includes("   ")) {
             t = t.replace("  ", ' ').replace("   ", " ");
@@ -135,11 +142,15 @@
         while (t.startsWith(" ")) {
             t = t.slice(1);
         }
+        while (t.endsWith(" ")) {
+            t = t.substring(0, t.length - 1);
+        }
         var arg = t.split(" ");
         var element = arg[0];
         if (element === '') {
             return terminal.reset();
         }
+        removeAt(arg, '');
         var cmd = arg[0];
         t = t.replace("|href|", window.location.href)
             .replace("|user|", usr)
@@ -194,6 +205,7 @@
                         case "settings":
                             terminal.allowOnly("");
                             terminal.printf("(~) Loading settings...");
+                            terminal.allowOnly("*");
                             break;
                         default:
                             terminal.printf("terminal: the command " + arg[1] + " doesn't exist.")
@@ -216,7 +228,6 @@
                     terminal.allowOnly("");
                     var sec = parseInt(arg[1]);
                     var times = parseInt(arg[2]);
-                    console.log(`${sec}, ${times}`);
                     var repeatIndex = 1;
                     for (repeatIndex; repeatIndex < times; repeatIndex++) {
                         await sleep(sec);
