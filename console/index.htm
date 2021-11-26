@@ -248,7 +248,9 @@
                 terminal.allowOnly("");
                 try {
                     fetch(arg[1]).then(_ => _.text()).then(res => terminal.printf(res + "\n" + e));
+                    return terminal.allowOnly("*");
                 } catch (err) {
+                    terminal.allowOnly("*");
                     terminal.logLine(`${cmd}: failed to downloadString host '${arg[1]}'.\nJS ERR: ${err}`);
                 }
                 terminal.allowOnly("*")
