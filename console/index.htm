@@ -247,6 +247,13 @@
                 }
                 terminal.allowOnly("");
                 try {
+                    /*var dots = ".";
+                    while(true) {
+                        await sleep(500);
+                        terminal.change(
+                            _$("c").value.split("\n")
+                        )
+                    }*/
                     fetch(arg[1]).then(_ => _.text()).then(res => terminal.printf(res + "\n" + e));
                     return terminal.allowOnly("*");
                 } catch (err) {
