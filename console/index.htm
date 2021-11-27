@@ -293,9 +293,13 @@
     terminal.removeLine = (index) => {
         var main = "", lineArr = [];
         lineArr = _$("c").value.split("\n");
-        removeAt(lineArr, index ?? _$("c").value.split("\n")[_$("c").value.split("\n").length - 1])
+        index ?? _$("c").value.split("\n")[_$("c").value.split("\n").length - 1]
+        removeAt(lineArr, index)
         main = lineArr.join("\n");
         terminal.change(main);
+    }
+    terminal.editLine = (index, val) => {
+
     }
 
     var system = new Object();
