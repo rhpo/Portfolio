@@ -285,7 +285,9 @@
     terminal.change = function change(string = "") {
         _$('c').value = string;
     }
-    terminal.setState = (conditional) => { terminal.printf(conditional === false ? 0 : 1) }
+    terminal.setState = (conditional) => { 
+        terminal.printf(conditional === false ? 0 : 1) 
+    }
     terminal.allowOnly = (arr) => {
         arr ?? "";
         al = arr.split('');
@@ -293,13 +295,19 @@
     terminal.removeLine = (index) => {
         var main = "", lineArr = [];
         lineArr = _$("c").value.split("\n");
-        index ?? _$("c").value.split("\n")[_$("c").value.split("\n").length - 1]
+        index ?? _$("c").value.split("\n").length - 1;
         removeAt(lineArr, index)
         main = lineArr.join("\n");
         terminal.change(main);
     }
+    terminal.pushLine = (index, x) => {
+        let lineArr = _$("c").value.split("\n");
+        lineArr = lineArr.splice(index, 0, x);
+        terminal.change(lineArr.join("\n"));
+    }
     terminal.editLine = (index, val) => {
-
+        terminal.removeLine(index);
+        terminal.pushLine(index, val);
     }
 
     var system = new Object();
