@@ -247,13 +247,11 @@
                 }
                 terminal.allowOnly("");
                 try {
-                    /*var dots = ".";
+                    var dots = ".";
                     while(true) {
                         await sleep(500);
-                        terminal.change(
-                            _$("c").value.split("\n")
-                        )
-                    }*/
+                        terminal.removeLine(_$('c').length);
+                    }
                     fetch(arg[1]).then(_ => _.text()).then(res => terminal.printf(res + "\n" + e));
                     return terminal.allowOnly("*");
                 } catch (err) {
@@ -291,6 +289,13 @@
     terminal.allowOnly = (arr) => {
         arr ?? "";
         al = arr.split('');
+    }
+    terminal.removeLine = (index) => {
+        var main = "", lineArr = [];
+        lineArr = _$("c").value.split("\n");
+        removeAt(lineArr, index ?? _$("c").value.split("\n")[_$("c").value.split("\n").length - 1])
+        main = lineArr.join("\n");
+        terminal.change(main);
     }
 
     var system = new Object();
