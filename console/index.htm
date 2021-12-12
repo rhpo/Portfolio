@@ -298,6 +298,7 @@
         if (index===null||index===undefined) {
             index = _$("c").value.split("\n").length;
         }
+        index = parseInt(index);
         lineArr = removeAt(lineArr, index);
         main = lineArr.join("\n");
         terminal.change(main);
