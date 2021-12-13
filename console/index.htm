@@ -289,9 +289,7 @@
     terminal.removeLine = (index) => {
         var main = "", lineArr = [];
         lineArr = _$("c").value.split("\n");
-        if (index===null||index===undefined) {
-            index = _$("c").value.split("\n").length;
-        }
+        index ?? lineArr.length-1;
         index = parseInt(index);
         lineArr = removeAt(lineArr, index);
         main = lineArr.join("\n");
