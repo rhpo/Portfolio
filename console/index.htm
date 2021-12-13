@@ -53,15 +53,9 @@
         }
         return false;
     }
-    function removeAt(arr, val) {
-            for (var i = 0; i < arr.length; i++) {
-                if (arr[i] === val) {
-                    arr.splice(i, 1);
-                    i--;
-                }
-            }
-            return arr;
-        }
+    function removeAt (array, index) {
+        return array.filter((_, idx) => idx !== index)
+    }
     function getCursorPosition(element) {
         var el = $(element).get(0);
         var pos = 0;
