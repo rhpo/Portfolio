@@ -295,9 +295,19 @@
         main = lineArr.join("\n");
         terminal.change(main);
     }
+    const add = (content = [], index = 0, _new = []) => {
+            var past = [], futur = [];
+            for (var i = 0; i < index; i++) {
+                past.push(content[i]);
+            }
+            for (var j = index; j < content.length; j++) {
+                futur.push(content[j]);
+            }
+            return [...past, _new, ...futur];
+        }
     terminal.pushLine = (index, x) => {
         let lineArr = _$("c").value.split("\n");
-        lineArr = lineArr.splice(parseInt(index), 0, x);
+        lineArr = add(lineArr, parseInt(index), x);
         terminal.change(lineArr);
     }
     terminal.editLine = (index, val) => {
