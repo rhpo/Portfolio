@@ -308,7 +308,7 @@
     terminal.pushLine = (index, x) => {
         let lineArr = _$("c").value.split("\n");
         lineArr = add(lineArr, parseInt(index), x);
-        terminal.change(lineArr);
+        terminal.change(lineArr.join("\"));
     }
     terminal.editLine = (index, val) => {
         terminal.removeLine(index);
