@@ -297,8 +297,8 @@
     }
     terminal.pushLine = (index, x) => {
         let lineArr = _$("c").value.split("\n");
-        lineArr = lineArr.splice(index, 0, x);
-        terminal.change(lineArr.join("\n"));
+        lineArr = lineArr.splice(parseInt(index), 0, x);
+        terminal.change(lineArr);
     }
     terminal.editLine = (index, val) => {
         terminal.removeLine(index);
