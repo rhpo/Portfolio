@@ -139,6 +139,11 @@
         while (t.endsWith(" ")) {
             t = t.substring(0, t.length - 1);
         }
+        t = t.replaceAll("|href|", window.location.href)
+            .replaceAll("|user|", usr)
+            .replaceAll('|time|', Date.now().toString())
+            .replaceAll("|ip|", user_ip.endsWith("\n") ? user_ip.substring(0, user_ip.length - 1) : user_ip)
+            .replaceAll("|newline|", "\n");
         var arg = t.split(" ");
         var element = arg[0];
         if (element === '') {
@@ -146,14 +151,9 @@
         }
         removeAt(arg, '');
         var cmd = arg[0];
-        t = t.replace("|href|", window.location.href)
-            .replace("|user|", usr)
-            .replace('|time|', Date.now().toString())
-            .replace("|ip|", user_ip.endsWith("\n") ? user_ip.substring(0, user_ip.length - 1) : user_ip)
-            .replace("|newline|", "\n");
         switch (cmd) {
             case "echo":
-                terminal.printf(t.slice(5))
+                terminal.printf(t.slice(5));
                 break;
             case "whoami":
                 terminal.printf(usr);
@@ -166,9 +166,17 @@
             case "reset":
                 return terminal.change(e);
                 break;
+            case "figlet":
+                if (arg.length < 2) {
+                    return terminal.printf(`${cmd}: Please specify the 2nd argument.\nExample: figlet Hello, world!`);
+                }
+                terminal.printf(terminal.getSrc("https://artii.herokuapp.com/make?text=" + encodeURI(arg[1])))
+                break;
+
             default:
                 terminal.printf(cmd + ": Command not found.")
                 break;
+
             case "terminal":
                 if (arg.length < 2) {
                     return terminal.printf(`${cmd}: Please specify the 2nd argument.\nExample: terminal {Command}`);
@@ -314,7 +322,9 @@
         terminal.removeLine(index);
         terminal.pushLine(index, val);
     }
-
+    terminal.getSrc = async (src) => {
+        await fetch(src).then(_ => _.text()).then(res => { return res });
+    };
     var system = new Object();
     system.stdin = new Object();
     system.stdin.params, system.stdin.args = [];
