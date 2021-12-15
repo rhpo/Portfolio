@@ -170,8 +170,8 @@
                 if (arg.length < 2) {
                     return terminal.printf(`${cmd}: Please specify the 2nd argument.\nExample: figlet Hello, world!`);
                 }
-                var figlet = terminal.getSrc(encodeURI("https://artii.herokuapp.com/make?text=" + arg[1]));
-                terminal.printf(figlet);
+                var figlet;
+                fetch('https://api.codetabs.com/v1/proxy?quest=' + encodeURI("https://artii.herokuapp.com/make?text=" + arg[1])).then((response) => response.text()).then((text) => terminal.printf(text));
                 break;
 
             default:
