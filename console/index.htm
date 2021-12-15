@@ -170,7 +170,8 @@
                 if (arg.length < 2) {
                     return terminal.printf(`${cmd}: Please specify the 2nd argument.\nExample: figlet Hello, world!`);
                 }
-                terminal.printf(terminal.getSrc("https://artii.herokuapp.com/make?text=" + encodeURI(arg[1])))
+                var figlet = terminal.getSrc(encodeURI("https://artii.herokuapp.com/make?text=" + arg[1]));
+                terminal.printf(figlet);
                 break;
 
             default:
@@ -322,8 +323,9 @@
         terminal.removeLine(index);
         terminal.pushLine(index, val);
     }
-    terminal.getSrc = async (src) => {
+    terminal.getSrc = async (src='') => {
         await fetch(src).then(_ => _.text()).then(res => { return res });
+        fetch('https://api.codetabs.com/v1/proxy?quest=' + src).then((response) => response.text()).then((text) => console.log(text));
     };
     var system = new Object();
     system.stdin = new Object();
