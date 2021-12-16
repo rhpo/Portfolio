@@ -172,7 +172,7 @@
                 }
                 terminal.allowOnly("");
                 return fetch('https://api.codetabs.com/v1/proxy?quest=' + encodeURI("https://artii.herokuapp.com/make?text=" + arg[1])).then((response) => response.text()).then((text) => {
-                    terminal.printf(text)
+                    terminal.printf(text+"\n")
                     terminal.allowOnly("*");
                     terminal.reset();
                     });
