@@ -168,7 +168,7 @@
             var key = arg[i];
             if (key.startsWith('-')) {
                 tempArgArray.push(key);
-                arg = removeAt(arg, index);
+                arg = removeAt(arg, i);
             }
             if (key.startsWith('|') && key.endsWith('|')) {
                 var nodeBetween = key.substring(0, key.length-1).substring(1, key.length-1);
