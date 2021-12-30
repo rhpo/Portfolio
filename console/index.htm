@@ -173,7 +173,6 @@
             if (key.startsWith('|') && key.endsWith('|')) {
                 var nodeBetween = key.substring(0, key.length-1).substring(1, key.length-1);
                 var variable = eval(nodeBetween);
-                var whitelistDataTypes = ["function"];
                 if (typeof variable === "function") {
                     arg[i] = `function!${nodeBetween}`;
                 } else {arg[i] = variable}
