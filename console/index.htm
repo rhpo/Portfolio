@@ -164,12 +164,18 @@
         }
         
         var tempArgArray=[];
-        arg.forEach((key, index) => {
+        for (var i = 0; i < arg.length; i++) {
+            var key = arg[i];
             if (key.startsWith('-')) {
                 tempArgArray.push(key);
                 arg = removeAt(arg, index);
             }
-        });
+            if (key.startsWith('|') && key.endsWith('|')) {
+                var nodeBetween = key.substring(0, key.length-1).substring(1, key.length-1);
+                var variable = eval(nodeBetween);
+                arg[i] = variable;
+            }
+        }
         system.stdin.args = tempArgArray;
         var cmd = arg[0];
         switch (cmd) {
