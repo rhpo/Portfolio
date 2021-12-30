@@ -174,7 +174,7 @@
                 var nodeBetween = key.substring(0, key.length-1).substring(1, key.length-1);
                 var variable = eval(nodeBetween);
                 var whitelistDataTypes = ["function"];
-                if (typeof variable in whitelistDataTypes) {
+                if (typeof variable === "function") {
                     arg[i] = `function!${nodeBetween}`;
                 } else {arg[i] = variable}
             }
@@ -183,7 +183,7 @@
         var cmd = arg[0];
         switch (cmd) {
             case "echo":
-                terminal.printf(arg.join(' '));
+                terminal.printf(arg.shift().join(' '));
                 break;
             case "whoami":
                 terminal.printf(usr);
