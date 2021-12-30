@@ -172,7 +172,12 @@
             }
             if (key.startsWith('|') && key.endsWith('|')) {
                 var nodeBetween = key.substring(0, key.length-1).substring(1, key.length-1);
-                var variable = eval(nodeBetween);
+                try {
+                    var variable = eval(nodeBetween);
+                }
+                catch (error) {
+                    terminal.printf(`${arg[0]}=> var..${i}: Unhandled Exception, use the 'lastexp' command to see the JS-SYS Error.`);
+                }
                 if (typeof variable === "function") {
                     arg[i] = `function!${nodeBetween}`;
                 } else {arg[i] = variable}
@@ -271,7 +276,7 @@
                     }
                     terminal.allowOnly("*");
                 } catch (err) {
-                    terminal.printf(`${cmd}: Unhandled Exception, use: 'lastexp' command to see the JS-SYS Error.`);
+                    terminal.printf(`${cmd}: Unhandled Exception, use the 'lastexp' command to see the JS-SYS Error.`);
                     lastexp = err;
                 }
                 break;
