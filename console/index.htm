@@ -176,7 +176,9 @@
                     var variable = eval(nodeBetween);
                 }
                 catch (error) {
-                    terminal.printf(`${arg[0]}=> var..${i}: Unhandled Exception, use the 'lastexp' command to see the JS-SYS Error.`);
+                    terminal.printf(`${arg[0]} => var..${i}: \nUnhandled Exception, use the 'lastexp' command to see the JS-SYS Error.`);
+                    return terminal.reset();
+                    lastexp = error;
                 }
                 if (typeof variable === "function") {
                     arg[i] = `function!${nodeBetween}`;
