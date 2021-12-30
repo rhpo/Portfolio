@@ -2,24 +2,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" crossorigin="anonymous"></script>
 <style>
     .c {
-        margin: 0; 
-        top: 0; 
-        left: 0;
-        resize: none;
+        resize:   none;
         overflow: none;
         background-color: black;
         color: chartreuse;
-        width: 100%;
+        width:  100%;
         height: 100vh;
-        top: 0;
-        left: 0;
+        margin: 0;
+        top:    0;
+        left:   0;
         border: none;
         font-family: Consolas, monaco, monospace;
         font-size: 17px;
+        padding:   05px;
         caret-color: white;
         outline-style: none;
-        box-shadow: none;
-        border-color: transparent;
+        box-shadow:    none;
+        border-color:  transparent;
     }
 
     body {
@@ -33,11 +32,17 @@
 </head>
 
 <body>
-    <textarea name="c" id="c" class="c" spellcheck="false"></textarea>
+    <textarea 
+        name="c" 
+        id="c" 
+        class="c" 
+        spellcheck="false">
+    />
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    var c = document.getElementById('c');
 
     var user_ip = '';
     var al = ["*"];
@@ -47,9 +52,9 @@
     var readline_result = "";
 
     $("#c").bind("keydown click focus", function (event) { // initialise the cadet position changed event
-        var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-        var before_chars = _$('c').value.length; 
-        var __t = getCursorPosition(_$('c'));
+        var line = c.value.split('\n')[c.value.split('\n').length - 1];
+        var before_chars = c.value.length; 
+        var __t = getCursorPosition(c);
     });
     function cursor_changed(element) {
         var new_position = getCursorPosition(element);
@@ -86,13 +91,10 @@
     }
     var usr = (`user${ranInt(100, 999)}`);
     var e = usr + ":~# ";
-    _$("c").value = e;
-    function _$(elm = '') {
-        return document.getElementById(elm);
-    }
+    c.value = e;
     user_ip = user_ip.substring(0, user_ip.length - 1);
-    _$('c').addEventListener("keypress", function (event) {
-        _$("c").scrollTop = _$('c').scrollWidth;
+    c.addEventListener("keypress", function (event) {
+        c.scrollTop = c.scrollWidth;
 
         var includes = false;
 
@@ -125,10 +127,10 @@
             return event.preventDefault();
         }
     });
-    _$('c').addEventListener("keydown", function (event) {
-        var line = _$('c').value.split('\n')[_$('c').value.split('\n').length - 1];
-            var before_chars = _$('c').value.length; 
-            var __t = getCursorPosition(_$('c'));
+    c.addEventListener("keydown", function (event) {
+        var line = c.value.split('\n')[c.value.split('\n').length - 1];
+            var before_chars = c.value.length; 
+            var __t = getCursorPosition(c);
         if (event.keyCode === 8) {
             if (__t <= before_chars - line.length + e.length) {
                 event.preventDefault();
@@ -276,7 +278,7 @@
                     var dots = ".";
                     while(true) {
                         await sleep(500);
-                        terminal.removeLine(_$('c').length);
+                        terminal.removeLine(c.length);
                     }
                     fetch(arg[1]).then(_ => _.text()).then(res => terminal.printf(res + "\n" + e));
                     return terminal.allowOnly("*");
@@ -295,21 +297,21 @@
 
     var terminal = new Object();
     terminal.log = function log(string = "") {
-        _$('c').value += string;
+        c.value += string;
     }
     terminal.logLine = function log(string = "") {
-        _$('c').value += string + '\n';
+        c.value += string + '\n';
     }
     terminal.printf = function lnLog(string = "") {
-        _$('c').value += "\n" + string;
+        c.value += "\n" + string;
         document.title = "Console | " + string;
-        _$("c").scrollTop = _$("c").scrollHeight;
+        c.scrollTop = c.scrollHeight;
     }
     terminal.reset = function rst() {
-        _$('c').value += `\n${e}`;
+        c.value += `\n${e}`;
     }
     terminal.change = function change(string = "") {
-        _$('c').value = string;
+        c.value = string;
     }
     terminal.setState = (conditional) => { 
         terminal.printf(conditional === false ? 0 : 1) 
@@ -320,7 +322,7 @@
     }
     terminal.removeLine = (index) => {
         var main = "", lineArr = [];
-        lineArr = _$("c").value.split("\n");
+        lineArr = c.value.split("\n");
         index ?? lineArr.length-1;
         index = parseInt(index);
         lineArr = removeAt(lineArr, index);
@@ -338,7 +340,7 @@
             return [...past, _new, ...futur];
         }
     terminal.pushLine = (index, x) => {
-        let lineArr = _$("c").value.split("\n");
+        let lineArr = c.value.split("\n");
         lineArr = add(lineArr, parseInt(index), x);
         terminal.change(lineArr.join("\n"));
     }
@@ -351,7 +353,7 @@
     };
     terminal.readline = () => {
         e="";
-        terminal.change(`${_$('c').value}\n`);
+        terminal.change(`${c.value}\n`);
         readline = true;
         while (true) {
             if (readline === false) {
