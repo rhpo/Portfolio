@@ -183,7 +183,7 @@
         var cmd = arg[0];
         switch (cmd) {
             case "echo":
-                terminal.printf(t.slice(5));
+                terminal.printf(arg.join(' '));
                 break;
             case "whoami":
                 terminal.printf(usr);
