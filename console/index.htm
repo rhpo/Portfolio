@@ -173,7 +173,10 @@
             if (key.startsWith('|') && key.endsWith('|')) {
                 var nodeBetween = key.substring(0, key.length-1).substring(1, key.length-1);
                 var variable = eval(nodeBetween);
-                arg[i] = variable;
+                var whitelistDataTypes = ["function"];
+                if (typeof variable in whitelistDataTypes) {
+                    arg[i] = `function!${nodeBetween}`;
+                } else {arg[i] = variable}
             }
         }
         system.stdin.args = tempArgArray;
