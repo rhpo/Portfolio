@@ -212,6 +212,7 @@
                                         ('"' + arg[2] + '"')
                                     }`);
                             }
+                            declaredVariables.push(arg[1]);
                         }
                         catch (err) {
                             terminal.printf(`${arg[0]}: Unhandled Exception! Use the 'lastexp' command to see the JS-SYS Error.`);
