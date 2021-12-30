@@ -177,6 +177,7 @@
                 }
                 catch (error) {
                     terminal.printf(`${arg[0]} => var${i}: Unhandled Exception! Use the 'lastexp' command to see the JS-SYS Error.`);
+                    lastexp=error;
                     return terminal.reset();
                 }
                 if (typeof variable === "function") {
