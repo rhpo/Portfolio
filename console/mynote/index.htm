@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgb(3, 82, 230);
+        }
+
+        textarea {
+            width: 100%;
+            height: 85vh;
+        }
+
+        button {
+            height: 6vh;
+            width: 100%;
+        }
+    </style>
+    <title>Notepad</title>
+</head>
+
+<body>
+    <textarea rows="4" id="b"></textarea>
+    <button id="a">
+        Save...
+    </button>
+    <script>
+        document.getElementById('a').onclick = async () => {
+            var input = encodeURI(btoa(document.getElementById('b').value));
+            fetch("https://securitysystem.varchardev.repl.co/?main=" + input).then(_ => _.text()).then(final => {
+                switch (final) {
+                    case "Success":
+                        alert('Note Saved!');
+                        break;
+                    case "Fail":
+                        alert('(!) Error');
+                        break;
+                    default:
+                        alert('(!) API Error:\n' + final)
+                        break;
+                }
+                document.getElementById('b').value = ""
+            });
+        }
+    </script>
+</body>
