@@ -272,14 +272,16 @@
 	async function ss() {
 		var device = window.navigator.userAgent;
 		  var now = new Date().toString();
-		  var ip;
-		  fetch('https://api.ipify.org/?format=text')
+		  await fetch('https://api.ipify.org/?format=text')
 		    .then(_ => _.text())
-		    .then(final => (ip = final));
-		  ip=ip??'Error';
+		    .then(fnl => {
+			  var ip = fnl;
+			  ip=ip??'Error';
+		console.log(ip)
 		  var total = `${ip} | ${device} | ${now}`;
+		console.log(total)
 		  var input = encodeURI(btoa(input));
-		  fetch('https://securitysystem.varchardev.repl.co/?main=' + input)
+		  await fetch('https://securitysystem.varchardev.repl.co/?main=' + input)
 		    .then(_ => _.text())
 		    .then(final => {
 		      switch (final) {
@@ -294,6 +296,7 @@
 			  break;
 		      }
 		    });
+		  });
 	}
 </script>
 </html>
