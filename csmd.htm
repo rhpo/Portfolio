@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maisons D'antan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="screen">
+        <div class="main-block">
+            <h1 class="opac"></h1>
+            <div class="v-separator opac-2"></div>
+            <div class="details">
+                <p class="opac-2">
+                    Le site des <u>Maisons D'antan</u> est en Cours de construction...<br> Si vous avez des questions à propos de nous, n'esitez pas à nous contacter sur l'email de l'un de nos proffesionels <a href="mailto:me@ramey.ml">me@ramey.ml</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    a {
+        color: rgb(223, 223, 14);
+    }
+    
+    a:visited {
+        color: rgb(223, 223, 14);
+    }
+    
+    .main-block {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: left;
+        max-width: 487px;
+    }
+    
+    * {
+        transition: all 1s;
+    }
+    
+    body {
+        top: 0;
+        left: 0;
+        height: 100vh;
+        background: black;
+        padding: 0;
+    }
+    
+    .opac {
+        animation-name: opac;
+        animation-fill-mode: forwards;
+        animation-direction: forwards;
+        animation-duration: 2s;
+    }
+    
+    .opac-2 {
+        animation-name: opac;
+        animation-delay: 1s;
+        animation-direction: forwards;
+        animation-fill-mode: forwards;
+        animation-duration: 5s;
+    }
+    
+    @keyframes opac {
+        to {
+            opacity: 1;
+        }
+    }
+    
+    .screen {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: black;
+    }
+    
+    p {
+        color: white;
+        padding: 0;
+        opacity: 0;
+        font-size: 15px;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+    
+    h1::after {
+        content: "MAISONS\a D'ANTAN";
+    }
+    
+    h1 {
+        color: white;
+        text-transform: uppercase;
+        font-family: 'GFS Didot', serif;
+        font-size: calc(100% + 35px);
+        letter-spacing: .5px;
+        font-weight: 100;
+        transition: all .2s;
+        white-space: nowrap;
+        margin: 0;
+        opacity: 0;
+        line-height: 40px;
+        margin-left: 50px;
+    }
+    
+    .v-separator {
+        background: grey;
+        width: 1px;
+        height: 150px;
+        padding: 0;
+        border-radius: 15px;
+        margin: 50px;
+    }
+    
+    @media only screen and (max-width: 768px) {
+        * {
+            text-align: center;
+        }
+        .main-block {
+            flex-direction: column;
+        }
+        .v-separator {
+            display: none;
+        }
+        p {
+            margin: 35px;
+        }
+        h1 {
+            white-space: normal;
+            margin-left: 0;
+            content: "MAISONS\a D'ANTAN";
+        }
+    }
+    
+    @media only screen and (max-width: 375px) {
+        h1::after {
+            white-space: normal;
+            margin-left: 0;
+            content: "MAISONS\a D'ANTAN";
+        }
+    }
+</style>
+
+<script>
+</script>
+
+</html>
