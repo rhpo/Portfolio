@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>LuckyClimber</title>
+</head>
+
+<body>
+    <div class="game">
+        <div class="play-area">
+            <div class="column">
+                <div class="line">
+                    <div class="case" id="p1Case8"></div>
+                    <div class="case" id="p1Case7"></div>
+                    <div class="case" id="p1Case6"></div>
+                    <div class="case" id="p1Case5"></div>
+                    <div class="case" id="p1Case4"></div>
+                    <div class="case" id="p1Case3"></div>
+                    <div class="case" id="p1Case2"></div>
+                    <div class="case" id="p1Case1"></div>
+                </div>
+                <div class="start" id="start">
+                    <div class="player p1"></div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="line">
+                    <div class="case" id="p2Case8"></div>
+                    <div class="case" id="p2Case7"></div>
+                    <div class="case" id="p2Case6"></div>
+                    <div class="case" id="p2Case5"></div>
+                    <div class="case" id="p2Case4"></div>
+                    <div class="case" id="p2Case3"></div>
+                    <div class="case" id="p2Case2"></div>
+                    <div class="case" id="p2Case1"></div>
+                </div>
+                <div class="start" id="start2">
+                    <div class="player p2"></div>
+                </div>
+            </div>
+        </div>
+        <button class="action">GO</button>
+    </div>
+</body>
+<style>
+    body {
+        top: 0;
+        left: 0;
+        padding: 0;
+        margin: 0;
+        background: linear-gradient(60deg, rgb(238, 164, 164), rgb(0, 204, 255));
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    .game {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+    }
+    
+    .play-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: 138px;
+    }
+    
+    .case:last-child {
+        border-bottom: 0;
+    }
+    
+    .case {
+        width: 55px;
+        height: 50px;
+        border-bottom: 4px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .column {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .line {
+        border: 5px solid black;
+        border-radius: 10px;
+    }
+    
+    .player {
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        border-radius: 50%;
+        opacity: 1;
+        transition: opacity 400ms;
+    }
+    
+    .p1 {
+        background: rgb(1, 87, 216);
+        border: 5px solid rgb(0, 0, 0);
+    }
+    
+    .p2 {
+        background: rgb(248, 68, 68);
+        border: 5px solid rgb(0, 0, 0);
+    }
+    
+    .start {
+        padding-top: calc(25px / 2);
+        padding-bottom: calc(25px / 2);
+        min-height: 35px;
+    }
+    
+    .action {
+        width: 100%;
+        height: 60px;
+        border: 5px solid black;
+        border-radius: 15px;
+        background: linear-gradient(rgb(93, 114, 209), rgba(16, 90, 202, 0.767));
+        font-size: 22px;
+        font-weight: 600;
+        text-align: center;
+        align-content: center;
+    }
+    
+    .startmoving {
+        animation-name: startmove;
+        animation-duration: 400ms;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+    
+    .moving {
+        animation-name: move;
+        animation-duration: 400ms;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes startmove {
+        to {
+            transform: translateY(-59px);
+        }
+    }
+    
+    @keyframes move {
+        to {
+            transform: translateY(-54px);
+        }
+    }
+    
+    .p1turnbtn {
+        animation-name: p1turn;
+        animation-duration: 400ms;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+    }
+    
+    @keyframes p1turn {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            background: linear-gradient(rgb(216, 115, 115), rgba(218, 44, 44, 0.767));
+            opacity: 1;
+        }
+    }
+    
+    .p2turnbtn {
+        animation-name: p2turn;
+        animation-duration: 400ms;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+    }
+    
+    @keyframes p2turn {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            background: linear-gradient(rgb(93, 114, 209), rgba(16, 90, 202, 0.767));
+            opacity: 1;
+        }
+    }
+    
+    .fadeout {
+        animation-name: fadeout;
+        animation-duration: 400ms;
+        animation-fill-mode: forwards;
+    }
+    
+    .fadein {
+        animation-name: fadein;
+        animation-duration: 400ms;
+        animation-fill-mode: forwards;
+    }
+    
+    @keyframes fadeout {
+        to {
+            opacity: 0;
+        }
+    }
+    
+    @keyframes fadein {
+        from {
+            opacity: 0
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<script type="module" src="./game.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.0/fastclick.min.js" integrity="sha512-oljyd1wg75alHReTpDvNIQ4Yj1wZwGxxZhJhId3vr2dKY+26/r/wmMrImwDgin03+7wxyhX+adOQB/2BTvO5tQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script-->
+<script>
+    document.body.onload = () => {
+        var urlparams = new URLSearchParams(window.location.search);
+        //if (urlparams.room === undefined) {
+        //    return (document.body.innerHTML = Game.Index);
+        //}
+    }
+
+    if ('addEventListener' in document) {
+        document.addEventListener('DOMContentLoaded', function() {
+            FastClick.attach(document.body);
+        }, false);
+    }
+    var columns = 8;
+    var turn = false;
+    var player1Position = 0;
+    var player2Position = 0;
+    var player1, player2;
+    document.querySelector('.action').onclick = async() => {
+        player1 = document.querySelector('.p1');
+        player2 = document.querySelector('.p2');
+        turn = !turn;
+        if (turn) {
+            advance(player1, Math.floor(Math.random() * 4) + 1);
+            document.querySelector('.action').classList.remove('p2turnbtn');
+            document.querySelector('.action').classList.add('p1turnbtn');
+            await sleep(450);
+        } else {
+            advance(player2, Math.floor(Math.random() * 4) + 1);
+            document.querySelector('.action').classList.remove('p1turnbtn');
+            document.querySelector('.action').classList.add('p2turnbtn');
+            await sleep(450);
+        };
+    }
+    async function advance(player, cases = 1) {
+        for (var i = 0; i < cases; i++) {
+            document.querySelector('.action').disabled = true;
+            if (player === player1) {
+                if (player1Position === 0) {
+                    player1.classList.add('startmoving');
+                    await sleep(400);
+                    player1.remove();
+                    if (player1Position === columns + 1) {
+                        return reset();
+                    } else {
+                        var newP1 = document.createElement('div');
+                        newP1.className = 'player p1';
+                        try {
+                            document.getElementById('p1Case' +
+                                (player1Position + 1)).appendChild(newP1);
+                        } catch {
+                            alert('Blue Player Won!');
+                            turn = false;
+                            player1Position = 0;
+                            var newP1_ = document.createElement('div');
+                            newP1_.className = 'player p1';
+                            document.getElementById('start2').appendChild(newP1_)
+                        }
+                    }
+                    player1Position++;
+                } else {
+                    if (player1Position === columns + 1) {
+                        return reset()
+                    }
+                    document.querySelector('.p1').classList.add('moving');
+                    await sleep(400);
+                    document.querySelector('.p1').remove();
+                    if (player1Position === columns) {
+                        return reset()
+                    } else {
+                        var newP1 = document.createElement('div');
+                        newP1.className = 'player p1';
+                        document.getElementById('p1Case' + (player1Position + 1)).appendChild(newP1);
+                    }
+                    player1Position++;
+                }
+            } else {
+                if (player2Position === 0) {
+                    player2.classList.add('startmoving');
+                    await sleep(400);
+                    player2.remove();
+                    if (player2Position === columns + 1) {
+                        return reset();
+                    } else {
+                        var newP2 = document.createElement('div');
+                        newP2.className = 'player p2';
+                        try {
+                            document.getElementById('p2Case' +
+                                (player2Position + 1)).appendChild(newP2);
+                        } catch {
+                            alert('Red Player Won!');
+                            turn = false;
+                            player2Position = 0;
+                            var newP2_ = document.createElement('div');
+                            newP2_.className = 'player p2';
+                            document.getElementById('start2').appendChild(newP2_)
+                        }
+                    }
+                    player2Position++;
+                } else {
+                    if (player2Position === columns + 1) {
+                        return reset()
+                    }
+                    document.querySelector('.p2').classList.add('moving');
+                    await sleep(400);
+                    document.querySelector('.p2').remove();
+                    if (player2Position === columns) {
+                        return reset()
+                    } else {
+                        var newP2 = document.createElement('div');
+                        newP2.className = 'player p2';
+                        document.getElementById('p2Case' + (player2Position + 1)).appendChild(newP2);
+                    }
+                    player2Position++;
+                }
+            }
+            document.querySelector('.action').disabled = false;
+        }
+    }
+    async function
+    reset() {
+        document.querySelector('.p1') !== null ? document.querySelector('.p1').classList.add('fadeout') : () => {};
+        document.querySelector('.p2') !== null ? document.querySelector('.p2').classList.add('fadeout') : () => {};
+        await sleep(600);
+        document.querySelector('.p1') !== null ? document.querySelector('.p1').remove() : () => {};
+        document.querySelector('.p2') !==
+            null ? document.querySelector('.p2').remove() : () => {};
+        turn = false;
+        player2Position = 0, player1Position = 0;
+        var newP2 = document.createElement('div');
+        newP2.className = 'player p2';
+        document.getElementById('start2').appendChild(newP2);
+        var
+            newP1 = document.createElement('div');
+        newP1.className = 'player p1';
+        document.getElementById('start').appendChild(newP1);
+        document.querySelectorAll('.start').forEach(start => {
+            start.classList.add('fadein');
+        });
+        await sleep(400);
+        document.querySelectorAll('.start').forEach(start => {
+            start.classList.remove('fadein');
+        });
+        var columns = 8;
+        var turn = false;
+        var player1 = document.querySelector('.p1');
+        var player2 = document.querySelector('.p2');
+        player1Position = 0;
+        player2Position = 0;
+        document.querySelector('.action').disabled = false;
+    }
+    var sleep = (ms) => {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+</script>
+
+</html>
