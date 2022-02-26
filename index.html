@@ -1140,13 +1140,17 @@
                     transitionDelay: 400
                 });
                 var backup = document.querySelector('#divy').innerHTML;
-                Jax('~<h1 class="h1" id="title">Huh?</h1><p style="margin-bottom: 25px">Please write some text first.</p>')
+                try { Jax('~<h1 class="h1" id="title">Huh?</h1><p style="margin-bottom: 25px">Please write some text first.</p>') } catch {}
                 document.querySelector('.btn').onclick = () => {}
                 await sleep(2000);
                 var g = '';
                 backup.split('\n').forEach(l => g += '~' + l + '\n');
-                Jax(g)
+                try { Jax(g) } catch {}
                 await sleep(1000)
+                if (isMobile) { Swal.fire({
+                  icon: "error",
+                    title: 'Please enter a text.'
+                }); }
                 document.querySelector('.btn').onclick = _
                 } catch {}
 
@@ -1168,14 +1172,17 @@
                         await sleep(2000);
                         var g = '';
                         backup.split('\n').forEach(l => g += '~' + l + '\n');
-                        try { Jax(g) }
+                        try { Jax(g) } catch {}
                         await sleep(1000)
                         document.querySelector('.btn').onclick = _
                     })
                 }
                 f('Someone Notified You !', document.getElementById('notitext').value)
                 document.getElementById('notitext').value = '';
-                if (isMobile) { Swal.fire('Success!') }
+                if (isMobile) { swal({
+                  icon: "success",
+                    title: 'You successfully notified Ramy.'
+                }); }
             }
         }
         document.querySelector('.btn').onclick = async() => {
