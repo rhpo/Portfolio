@@ -1677,6 +1677,5 @@ ntc.init();
    document.documentElement.style.background = document.body.style.background = color;
    !color && (() => color = '#' + Math.floor(Math.random()*16777215).toString(16))();
    let rgb = getComputedStyle(document.body).backgroundColor.substring(4).slice(0, -1).split(', ');
-   var string = ntc.name(rgbToHex(...rgb))[1];
-   document.title += `: ${string}`;
+   document.title += `: (${rgb.join(', ')})`;
 </script>
