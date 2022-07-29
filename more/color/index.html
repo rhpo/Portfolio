@@ -1665,18 +1665,18 @@ ntc.init();
 
 </script>
 <script>
-  function ColorToHex(color) {
-    var hexadecimal = color.toString(16);
-    return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
+  function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
   }
 
-  function ConvertRGBtoHex(red, green, blue) {
-    return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
+  function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
   }
-   let color = location.search.substr(1);
+   let color = location.href.replace(location.origin + location.pathname, '').substr(1);
    document.documentElement.style.background = document.body.style.background = color;
    !color && (() => color = '#' + Math.floor(Math.random()*16777215).toString(16))();
    let rgb = getComputedStyle(document.body).backgroundColor.substring(4).slice(0, -1).split(', ');
-   var string = ntc.name(ConvertRGBtoHex(...rgb))[1];
+   var string = ntc.name(rgbToHex(...rgb))[1];
    document.title += `: ${string}`;
 </script>
