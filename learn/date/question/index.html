@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/onsenui/css/onsen-css-components.min.css"
+    />
+    <script defer src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
+    <script defer src="https://unpkg.com/driver.js/dist/driver.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/driver.js/dist/driver.min.css"
+    />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script defer type="module" src="index.js"></script>
+
+    <title>E9ra - Apprendre les dates</title>
+  </head>
+  <body data-aos="flip-right" style="position: relative" class="confetti">
+    <nav>
+      <!-- <img src="/assets/logo.png" alt="E9RA" class="logo" /> -->
+      <h1 class="name">Ramey &nbsp;&horbar;&nbsp; Learning</h1>
+      <div class="right-nav">
+        <div class="ham">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <h1 big class="what">Questionnaire de Dates</h1>
+
+      <div class="main-box">
+        <div class="container">
+          <div class="table">
+            <div class="table-header">
+              <div class="header__item">
+                <p id="draws" class="filter__link filter__link--number" href="#"
+                  >Évenement</a
+                >
+              </div>
+              <div class="header__item">
+                <p
+                  id="losses"
+                  class="filter__link filter__link--number"
+                  href="#"
+                  >Date</a
+                >
+              </div>
+              <div class="header__item">
+                <p id="total" class="filter__link filter__link--number" href="#"
+                  >Status</a
+                >
+              </div>
+            </div>
+            <div class="table-content">
+              <!-- <div class="table-row" data-uuid="${uid}" data-long-press-delay="500">
+                <div class="table-data">${q.replace(/[(?|!|؟)=]/g, '')} ${isArabic(q) ? '؟' : "?"}</div>
+                    <div class="table-data">
+                        <input type="text" placeholder="Réponse">
+                    </div>
+                    <div class="table-data">
+                        <img src="/assets/loading.gif" alt="Waiting..." srcset="" width="30">
+                    </div>
+                </div> -->
+            <!-- </div> -->
+            </div>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <div class="bottom">
+    <div class="shadow-white"></div>
+
+    <div class="contains">
+      <button class="go"><i class="fas fa-flag-checkered"></i> &nbsp;Commencer</button>
+    </div>
+  </div>
+</html>
