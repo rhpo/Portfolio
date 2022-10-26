@@ -114,7 +114,7 @@ window.onload = async () => {
 
     if (!localStorage.getItem('learn:date:data')) {
         await ons.notification.alert('Pas de données précédemment sauvgardés ont été trouvés. Créer Maintenant?');
-        location.href = '/date'
+        location.href = 'learn/date'
     }
 
     function isArabic(string) {
