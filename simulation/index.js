@@ -1,4 +1,4 @@
-import { Animation, LoadImage, LoadAudio, Shape, Text, World, GameLoop } from 'life.min.js';
+import { Animation, LoadImage, LoadAudio, Shape, Text, World, GameLoop } from './life.min.js';
 
 const assets = {
     images: {
