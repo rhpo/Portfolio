@@ -114,6 +114,8 @@ setInterval(() => {
     })
 }, 1000);
 
+let totalPlayers = world.width * 3 / 50
+
 for (var i = 0; i < world.width / 50; i++) {
     generateShape("rock");
     generateShape("paper");
@@ -143,6 +145,30 @@ function main() {
     if (types.every(type => type === 'scissor')) win('Scissor')
     if (types.every(type => type === 'paper')) win('Paper')
     if (types.every(type => type === 'rock')) win('Rock')
+
+    Text({
+        text: "📃 Paper win chance: " + parseInt(world.Objects.filter(e => e.name === 'paper').length / world.Objects.filter(o => o.tag === 'robot').length * 100) + "%",
+        y: 8,
+        x: 10,
+        fromEnd: true,
+        background: "black",
+    })
+
+    Text({
+        text: "🪨 Rock win chance: " + parseInt(world.Objects.filter(e => e.name === 'rock').length / world.Objects.filter(o => o.tag === 'robot').length * 100) + "%",
+        y: 18,
+        x: 10,
+        fromEnd: true,
+        background: "black",
+    })
+
+    Text({
+        text: "✂️ Scissors win chance: " + parseInt(world.Objects.filter(e => e.name === 'scissor').length / world.Objects.filter(o => o.tag === 'robot').length * 100) + "%",
+        y: 28,
+        x: 10,
+        fromEnd: true,
+        background: "black",
+    })
 }
 
 const FPS = 120;
