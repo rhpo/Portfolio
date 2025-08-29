@@ -2,9 +2,9 @@ import { Animation, LoadImage, LoadAudio, Shape, Text, World, GameLoop } from '.
 
 const assets = {
     images: {
-        paper: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/21/newspaper_1f4f0.png",
-        scissor: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/black-scissors_2702.png",
-        rock: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/271/rock_1faa8.png",
+        paper: "https://em-content.zobj.net/source/apple/419/newspaper_1f4f0.png",
+        scissor: "https://em-content.zobj.net/source/apple/419/scissors_2702-fe0f.png",
+        rock: "https://em-content.zobj.net/source/apple/419/rock_1faa8.png",
         bg: "https://www.kindpng.com/picc/m/38-382638_transparent-polka-dot-background-png-transparent-square-dots.png"
     }
 }
@@ -174,5 +174,6 @@ function main() {
 const FPS = 120;
 let game = new GameLoop(main, FPS);
 game.start();
+
 
 window.world = world
